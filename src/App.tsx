@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react'
+import { useState, useEffect, useRef, type FormEvent } from 'react'
 import './App.css'
 import ConfessionForm from './components/ConfessionForm'
 import ConfessionFeed from './components/ConfessionFeed'
@@ -49,7 +49,7 @@ function App() {
     return () => clearTimeout(id)
   }, [confessions])
 
-  function handleSubmit(e: React.FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault()
     const trimmed = text.trim()
     if (trimmed.length === 0) return

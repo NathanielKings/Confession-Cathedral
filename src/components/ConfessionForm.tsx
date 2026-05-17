@@ -1,11 +1,11 @@
-import type { RefObject } from 'react'
+import type { RefObject, FormEvent } from 'react'
 
 interface Props {
   text: string
   remaining: number
   textareaRef: RefObject<HTMLTextAreaElement | null>
   onTextChange: (value: string) => void
-  onSubmit: (e: React.FormEvent) => void
+  onSubmit: (e: FormEvent) => void
 }
 
 export default function ConfessionForm({
