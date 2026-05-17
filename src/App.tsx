@@ -1,14 +1,31 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import './App.css'
+
+const STORAGE_KEY = 'confession-cathedral-confessions'
 
 interface Confession {
   text: string
   time: Date
 }
 
+function loadConfessions(): Confession[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    if (!raw) return []
+    const parsed: { text: string; time: string }[] = JSON.parse(raw)
+    return parsed.map(c => ({ text: c.text, time: new Date(c.time) }))
+  } catch {
+    return []
+  }
+}
+
 function App() {
   const [text, setText] = useState('')
-  const [confessions, setConfessions] = useState<Confession[]>([])
+  const [confessions, setConfessions] = useState<Confession[]>(loadConfessions)
+
+  useEffect(() => {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(confessions))
+  }, [confessions])
 
   const remaining = 280 - text.length
 
